@@ -8,7 +8,7 @@
     "api/create-payment-intent.js": {
       "maxDuration": 30
     },
-    "api/calendar/availability-v2.cjs": {
+    "api/calendar/availability.js": {
       "maxDuration": 30
     },
     "api/calendar/create-event.js": {
