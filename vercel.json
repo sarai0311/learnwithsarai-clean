@@ -4,17 +4,6 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": null,
-  "functions": {
-    "api/create-payment-intent.js": {
-      "maxDuration": 30
-    },
-    "api/calendar/availability.js": {
-      "maxDuration": 30
-    },
-    "api/calendar/create-event.js": {
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -45,3 +34,4 @@
     }
   ]
 }
+
