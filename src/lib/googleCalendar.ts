@@ -51,10 +51,12 @@ export const googleCalendarService = {
     description?: string;
     attendeeEmail: string;
     attendeeName: string;
+    durationMinutes?: number;
   }): Promise<{ success: boolean; eventId?: string; hangoutLink?: string; error?: string }> {
     try {
       const startDateTime = createEventDateTime(eventData.date, eventData.time);
-      const endDateTime = createEventDateTime(eventData.date, eventData.time, 60); // 1 hour duration
+      const durationMinutes = eventData.durationMinutes || 60; // Default to 1 hour if not specified
+      const endDateTime = createEventDateTime(eventData.date, eventData.time, durationMinutes);
 
       const response = await fetch('/api/calendar/create-event', {
         method: 'POST',

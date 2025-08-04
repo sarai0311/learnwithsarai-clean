@@ -103,13 +103,28 @@ const BookClass = () => {
 
         // Create calendar event
         try {
+          // Set duration based on service type
+          let durationMinutes;
+          switch (selectedService.id) {
+            case 'trial':
+              durationMinutes = 30;
+              break;
+            case 'premium':
+              durationMinutes = 100;
+              break;
+            default: // standard
+              durationMinutes = 60;
+              break;
+          }
+          
           const calendarResult = await googleCalendarService.createCalendarEvent({
             date: selectedSlot.date,
             time: selectedSlot.time,
             title: `Spanish Class - ${selectedService.name}`,
             description: `Spanish class with ${customerInfo.name}\nLevel: ${customerInfo.level}\nGoals: ${customerInfo.goals}\nStudent timezone: ${customerInfo.timezone}`,
             attendeeEmail: customerInfo.email,
-            attendeeName: customerInfo.name
+            attendeeName: customerInfo.name,
+            durationMinutes: durationMinutes
           });
 
           if (calendarResult.success) {
@@ -152,7 +167,7 @@ const BookClass = () => {
       name: t('services.trial.title'),
       description: t('services.trial.description'),
       price: 10.50,
-      duration: "25 minutes",
+      duration: "30 minutes",
       icon: "🎁"
     },
     {
@@ -160,7 +175,7 @@ const BookClass = () => {
       name: t('services.standard.title'),
       description: t('services.standard.description'),
       price: 21.00,
-      duration: "50 minutes",
+      duration: "60 minutes",
       icon: "📚"
     },
     {
