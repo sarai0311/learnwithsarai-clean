@@ -4,22 +4,23 @@ import { zonedTimeToUtc } from 'date-fns-tz';
 // Environment variables
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
-const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'sarai.syav@gmail.com';
-const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL;
+const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'hola@learnwithsarai.com';
+const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL || 'hola@learnwithsarai.com';
+
 // Additional calendar that blocks availability (e.g., Preply bookings)
 const BUSY_CALENDAR_IDS = [
   PRIMARY_CALENDAR_ID,
   'c_7c78adbb83c842eaabac379c3ca6241c6325e5a029cfa72d363228f1a188d242@group.calendar.google.com'
 ];
 
-// Time slots (Atlantic/Canary time)
+// Time slots (Atlantic/Canary time) - 30-minute intervals
 const TIME_SLOTS = [
   '13:00','13:30','14:00','14:30','15:00','15:30',
   '16:00','16:30','17:00','17:30','18:00','18:30',
   '19:00','19:30','20:00','20:30','21:00','21:30','22:00'
 ];
 
-// Create Google Calendar client
+// Create Google Calendar client with domain-wide delegation
 const createCalendarClient = () => {
   if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY || !IMPERSONATE_USER_EMAIL) {
     console.error('Google Calendar credentials not configured');
@@ -84,7 +85,7 @@ export default async function handler(req, res) {
         };
         continue;
       }
-            const slots = TIME_SLOTS.map(t => {
+      const slots = TIME_SLOTS.map(t => {
         const slotStart = zonedTimeToUtc(`${dateKey}T${t}:00`, timezone);
         const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
         if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };

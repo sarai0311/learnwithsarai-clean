@@ -3,25 +3,26 @@ import { google } from 'googleapis';
 // Google Calendar configuration
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
-const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'sarai.syav@gmail.com';
-const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL;
+const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'hola@learnwithsarai.com';
+const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL || 'hola@learnwithsarai.com';
 
-// Create Google Calendar client using environment variables
+// Create Google Calendar client using environment variables with domain-wide delegation
 const createCalendarClient = async () => {
   try {
     // Use environment variables for authentication
-    if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+    if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY || !IMPERSONATE_USER_EMAIL) {
       console.error('Google Calendar credentials not configured');
       return null;
     }
 
-    // Create credentials object from environment variables
+    // Create JWT auth with domain-wide delegation
     const auth = new google.auth.JWT({
       email: SERVICE_ACCOUNT_EMAIL,
       key: PRIVATE_KEY.replace(/\\n/g, '\n'),
       scopes: ['https://www.googleapis.com/auth/calendar'],
       subject: IMPERSONATE_USER_EMAIL
     });
+    
     return google.calendar({ version: 'v3', auth });
   } catch (error) {
     console.error('Error creating Google Calendar client:', error);
