@@ -68,7 +68,17 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         }),
       });
 
-      const { clientSecret } = await response.json();
+      if (!response.ok) {
+        throw new Error(`Payment setup failed: ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+      
+      if (responseData.error) {
+        throw new Error(responseData.error);
+      }
+
+      const { clientSecret } = responseData;
 
       // Confirm payment with Stripe
       const { error, paymentIntent } = await stripe.confirmCardPayment(
@@ -90,7 +100,9 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         onSuccess();
       }
     } catch (err) {
-      onError('Network error. Please try again.');
+      console.error('Payment error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Network error. Please try again.';
+      onError(errorMessage);
     } finally {
       setIsProcessing(false);
     }
