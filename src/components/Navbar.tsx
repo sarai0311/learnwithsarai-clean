@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Palette } from 'lucide-react'; 
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import LearnWithSaraiLogo from '@/components/LearnWithSaraiLogo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,11 +19,11 @@ const Navbar = () => {
       <div className="sarai-container">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="p-2 bg-gradient-to-r from-sarai-primary to-sarai-secondary rounded-full">
-              <Palette className="h-6 w-6 text-white" />
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="p-2 bg-gradient-to-r from-sarai-primary to-sarai-secondary rounded-full shadow-lg">
+              <LearnWithSaraiLogo className="h-7 w-7" size={28} />
             </div>
-            <span className="text-sarai-primary font-montserrat text-2xl font-bold">
+            <span className="text-sarai-primary font-montserrat text-2xl font-bold tracking-wide">
               {t('nav.brand')}
             </span>
           </Link>

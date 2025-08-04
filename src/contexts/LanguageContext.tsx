@@ -49,7 +49,7 @@ const translations: Record<'en' | 'es', Record<string, string>> = {
     'nav.services': 'Services',
     'nav.chat': 'Chat',
     'nav.book': 'Book a Class',
-    'nav.brand': 'LEARN WithSarai',
+    'nav.brand': 'Learn With Sarai',
 
     // Hero Section
     'hero.badge': 'Online Spanish Classes',
@@ -211,7 +211,7 @@ const translations: Record<'en' | 'es', Record<string, string>> = {
     'nav.services': 'Servicios',
     'nav.chat': 'Chat',
     'nav.book': 'Reservar Clase',
-    'nav.brand': 'APRENDE ConSarai',
+    'nav.brand': 'Aprende Con Sarai',
 
     // Hero Section
     'hero.badge': 'Clases de Español Online',

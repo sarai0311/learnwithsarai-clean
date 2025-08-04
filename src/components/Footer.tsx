@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import LearnWithSaraiLogo from '@/components/LearnWithSaraiLogo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,8 +14,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand section - takes up more space */}
           <div className="col-span-1 md:col-span-3">
-            <Link to="/" className="flex items-center space-x-2">
-              <span className="text-sarai-primary font-montserrat text-2xl font-bold">
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="p-1.5 bg-gradient-to-r from-sarai-primary to-sarai-secondary rounded-full">
+                <LearnWithSaraiLogo className="h-6 w-6" size={24} />
+              </div>
+              <span className="text-sarai-primary font-montserrat text-2xl font-bold tracking-wide">
                 {t('nav.brand')}
               </span>
             </Link>
