@@ -42,10 +42,12 @@ const About = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-sarai-primary/10 via-sarai-secondary/10 to-sarai-accent/10 rounded-3xl transform -rotate-6"></div>
                   <div className="relative bg-white p-8 rounded-3xl shadow-2xl">
                     <div className="flex justify-center mb-6">
-                      <div className="w-48 h-48 bg-gradient-to-br from-sarai-primary to-sarai-secondary rounded-full flex items-center justify-center">
-                        <div className="w-40 h-40 bg-white rounded-full flex items-center justify-center">
-                          <div className="text-6xl">👩‍🏫</div>
-                        </div>
+                      <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary p-1">
+                        <img 
+                          src="/sarai-about-profile.jpeg" 
+                          alt="Sarai Acevedo - Professional Spanish Teacher"
+                          className="w-full h-full object-cover rounded-full"
+                        />
                       </div>
                     </div>
                     <div className="text-center">
