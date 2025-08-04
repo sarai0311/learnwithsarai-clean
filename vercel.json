@@ -4,20 +4,17 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": null,
-<<<<<<< HEAD
-=======
   "functions": {
     "api/create-payment-intent.js": {
       "maxDuration": 30
     },
-    "api/calendar/availability-v2.cjs": {
+    "api/calendar/availability.js": {
       "maxDuration": 30
     },
     "api/calendar/create-event.js": {
       "maxDuration": 30
     }
   },
->>>>>>> e5dc155 (cleanup: remove obsolete api scripts, add new profile images)
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -48,7 +45,3 @@
     }
   ]
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> e5dc155 (cleanup: remove obsolete api scripts, add new profile images)
