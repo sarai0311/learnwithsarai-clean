@@ -12,7 +12,11 @@ const BUSY_CALENDAR_IDS = [
 ];
 
 // Time slots (Atlantic/Canary time)
-const TIME_SLOTS = ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
+const TIME_SLOTS = [
+  '13:00','13:30','14:00','14:30','15:00','15:30',
+  '16:00','16:30','17:00','17:30','18:00','18:30',
+  '19:00','19:30','20:00','20:30','21:00','21:30','22:00'
+];
 
 // Create Google Calendar client
 const createCalendarClient = () => {
@@ -81,7 +85,7 @@ export default async function handler(req, res) {
       }
       const slots = TIME_SLOTS.map(t => {
         const slotStart = new Date(`${dateKey}T${t}:00`);
-        const slotEnd = new Date(slotStart.getTime() + 60 * 60 * 1000);
+        const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
         if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };
         const conflicted = busy.some(b => slotStart < new Date(b.end) && slotEnd > new Date(b.start));
         return { time: t, available: !conflicted, reason: conflicted ? 'busy' : undefined };
