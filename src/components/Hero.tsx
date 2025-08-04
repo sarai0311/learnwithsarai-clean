@@ -61,29 +61,12 @@ const Hero = () => {
               <div className="relative bg-white rounded-3xl p-8 shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500">
                 <div className="space-y-6">
                   <div className="flex justify-center items-center">
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary mx-auto">
+                    <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary mx-auto">
                       <img 
                         src="/sarai-about-profile.jpeg" 
                         alt="Sarai Acevedo - Spanish Teacher"
                         className="w-full h-full object-cover object-center"
                       />
-                    </div>
-                  </div>
-                  
-                  <div className="text-center space-y-4">
-                    <h3 className="text-2xl font-bold text-sarai-text">¡Hola! Soy Sarai</h3>
-                    <p className="text-gray-600">Profesora certificada de español de Colombia</p>
-                    
-                    <div className="flex justify-center space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    
-                    <div className="bg-sarai-background rounded-lg p-4">
-                      <p className="text-sm text-sarai-steel italic">
-                        "Más de 500 estudiantes felices aprendiendo español conmigo"
-                      </p>
                     </div>
                   </div>
                 </div>

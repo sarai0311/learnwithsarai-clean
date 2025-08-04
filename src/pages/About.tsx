@@ -39,8 +39,8 @@ const About = () => {
               
               <ScrollAnimation direction="right">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-sarai-primary/10 via-sarai-secondary/10 to-sarai-accent/10 rounded-3xl transform -rotate-6"></div>
-                  <div className="relative bg-white p-8 rounded-3xl shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-sarai-primary/20 via-transparent to-sarai-secondary/20 rounded-3xl transform rotate-3"></div>
+                  <div className="relative bg-white p-8 rounded-3xl shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500">
                     <div className="flex justify-center mb-6">
                       <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary p-1">
                         <img 
