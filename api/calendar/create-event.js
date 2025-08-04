@@ -4,6 +4,7 @@ import { google } from 'googleapis';
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'sarai.syav@gmail.com';
+const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL;
 
 // Create Google Calendar client using environment variables
 const createCalendarClient = async () => {
@@ -15,19 +16,13 @@ const createCalendarClient = async () => {
     }
 
     // Create credentials object from environment variables
-    const credentials = {
-      type: 'service_account',
-      client_email: SERVICE_ACCOUNT_EMAIL,
-      private_key: PRIVATE_KEY.replace(/\\n/g, '\n'),
-    };
-
-    const auth = new google.auth.GoogleAuth({
-      credentials,
-      scopes: ['https://www.googleapis.com/auth/calendar']
+    const auth = new google.auth.JWT({
+      email: SERVICE_ACCOUNT_EMAIL,
+      key: PRIVATE_KEY.replace(/\\n/g, '\n'),
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+      subject: IMPERSONATE_USER_EMAIL
     });
-    
-    const authClient = await auth.getClient();
-    return google.calendar({ version: 'v3', auth: authClient });
+    return google.calendar({ version: 'v3', auth });
   } catch (error) {
     console.error('Error creating Google Calendar client:', error);
     return null;

@@ -4,30 +4,25 @@ import { google } from 'googleapis';
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'sarai.syav@gmail.com';
+const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL;
 
 // Time slots (Atlantic/Canary time)
 const TIME_SLOTS = ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
 
 // Create Google Calendar client
-const createCalendarClient = async () => {
-  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+const createCalendarClient = () => {
+  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY || !IMPERSONATE_USER_EMAIL) {
     console.error('Google Calendar credentials not configured');
     return null;
   }
 
-  const credentials = {
-    type: 'service_account',
-    client_email: SERVICE_ACCOUNT_EMAIL,
-    private_key: PRIVATE_KEY.replace(/\\n/g, '\n'),
-  };
-
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/calendar']
+  const auth = new google.auth.JWT({
+    email: SERVICE_ACCOUNT_EMAIL,
+    key: PRIVATE_KEY.replace(/\\n/g, '\n'),
+    scopes: ['https://www.googleapis.com/auth/calendar'],
+    subject: IMPERSONATE_USER_EMAIL
   });
-
-  const authClient = await auth.getClient();
-  return google.calendar({ version: 'v3', auth: authClient });
+  return google.calendar({ version: 'v3', auth });
 };
 
 // Helper date utilities (no external deps)
