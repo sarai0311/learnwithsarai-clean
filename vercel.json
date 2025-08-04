@@ -13,8 +13,7 @@
     },
     "api/calendar/create-event.js": {
       "maxDuration": 30
-    },
-
+    }
   },
   "rewrites": [
     {
