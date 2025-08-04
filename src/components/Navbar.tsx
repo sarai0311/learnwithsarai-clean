@@ -30,34 +30,34 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <div className="flex space-x-8">
+            <div className="flex items-center space-x-8">
               <Link 
                 to="/" 
-                className={`font-medium transition-all duration-300 ${isActive('/') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
+                className={`font-medium transition-all duration-300 h-10 flex items-center ${isActive('/') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
               >
                 {t('nav.home')}
               </Link>
               <Link 
                 to="/about" 
-                className={`font-medium transition-all duration-300 ${isActive('/about') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
+                className={`font-medium transition-all duration-300 h-10 flex items-center ${isActive('/about') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
               >
                 {t('nav.about')}
               </Link>
               <Link 
                 to="/services" 
-                className={`font-medium transition-all duration-300 ${isActive('/services') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
+                className={`font-medium transition-all duration-300 h-10 flex items-center ${isActive('/services') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
               >
                 {t('nav.services')}
               </Link>
               <Link 
                 to="/chat" 
-                className={`font-medium transition-all duration-300 ${isActive('/chat') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
+                className={`font-medium transition-all duration-300 h-10 flex items-center ${isActive('/chat') ? 'text-sarai-primary scale-110' : 'text-gray-600 hover:text-sarai-primary hover:scale-110'}`}
               >
                 {t('nav.chat')}
               </Link>
               <Link 
                 to="/book" 
-                className="btn-primary shadow-lg hover:shadow-sarai-primary/20 transition-all duration-300 transform hover:-translate-y-1"
+                className="btn-primary h-10 px-6 py-2 flex items-center shadow-lg hover:shadow-sarai-primary/20 transition-all duration-300 transform hover:-translate-y-1"
               >
                 {t('nav.book')}
               </Link>
