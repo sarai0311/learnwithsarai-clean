@@ -107,7 +107,7 @@ const translations: Record<'en' | 'es', Record<string, string>> = {
     'services.subtitle': 'Classes designed just for you to help you reach your language goals',
     'services.tab.individual': 'Individual Classes',
     'services.tab.packages': 'Class Packages',
-    'services.tab.specialized': 'Specialized Classes',
+    
     'services.individual.title': 'One-on-One Spanish Classes',
     'services.individual.subtitle': 'Personalized individual lessons tailored to your specific needs and learning style',
     'services.trial.title': 'Trial Lesson',

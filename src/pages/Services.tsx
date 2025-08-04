@@ -40,7 +40,6 @@ const Services = () => {
                   <TabsList className="bg-gray-100">
                     <TabsTrigger value="individual" className="px-6 py-3">{t('services.tab.individual')}</TabsTrigger>
                     <TabsTrigger value="packages" className="px-6 py-3">{t('services.tab.packages')}</TabsTrigger>
-                    <TabsTrigger value="specialized" className="px-6 py-3">{t('services.tab.specialized')}</TabsTrigger>
                   </TabsList>
                 </div>
                 
@@ -178,72 +177,6 @@ const Services = () => {
                             "Chat support between sessions",
                             "Premium learning materials",
                             "Valid for 4 months"
-                          ]}
-                        />
-                      </motion.div>
-                    </ScrollAnimation>
-                  </div>
-                </TabsContent>
-                
-                {/* Specialized Classes */}
-                <TabsContent value="specialized">
-                  <ScrollAnimation direction="up" delay={0.1} className="text-center mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold text-sarai-text mb-4">
-                      Specialized Classes
-                    </h2>
-                    <p className="text-gray-600 max-w-3xl mx-auto">
-                      Focused courses designed for specific goals and contexts
-                    </p>
-                  </ScrollAnimation>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <ScrollAnimation direction="left" delay={0.2}>
-                      <motion.div whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                        <ServiceCard
-                          title="Spanish for Travel"
-                          description="Quick, practical Spanish skills for travelers heading to Spanish-speaking countries."
-                          icon="✈️"
-                          price="€25.00"
-                          features={[
-                            "50 minutes",
-                            "Survival phrases & vocabulary",
-                            "Cultural etiquette guidance",
-                            "Travel-specific role play",
-                            "Practical pronunciation focus"
-                          ]}
-                        />
-                      </motion.div>
-                    </ScrollAnimation>
-                    <ScrollAnimation direction="up" delay={0.4}>
-                      <motion.div whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                        <ServiceCard
-                          title="Colombian Spanish"
-                          description="Learn Colombian Spanish with native insights into regional expressions and culture."
-                          icon="🇨🇴"
-                          price="€25.00"
-                          features={[
-                            "50 minutes",
-                            "Colombian expressions",
-                            "Regional pronunciation",
-                            "Cultural context",
-                            "Native speaker insights"
-                          ]}
-                        />
-                      </motion.div>
-                    </ScrollAnimation>
-                    <ScrollAnimation direction="right" delay={0.6}>
-                      <motion.div whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                        <ServiceCard
-                          title="Conversational Spanish"
-                          description="Focus on speaking fluency and natural conversation skills for real-world communication."
-                          icon="💬"
-                          price="€21.00"
-                          features={[
-                            "50 minutes",
-                            "Speaking practice focus",
-                            "Real-world scenarios",
-                            "Pronunciation improvement",
-                            "Confidence building"
                           ]}
                         />
                       </motion.div>
