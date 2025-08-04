@@ -5,6 +5,11 @@ const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const PRIMARY_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'sarai.syav@gmail.com';
 const IMPERSONATE_USER_EMAIL = process.env.IMPERSONATE_USER_EMAIL;
+// Additional calendar that blocks availability (e.g., Preply bookings)
+const BUSY_CALENDAR_IDS = [
+  PRIMARY_CALENDAR_ID,
+  'c_7c78adbb83c842eaabac379c3ca6241c6325e5a029cfa72d363228f1a188d242@group.calendar.google.com'
+];
 
 // Time slots (Atlantic/Canary time)
 const TIME_SLOTS = ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
@@ -57,10 +62,11 @@ export default async function handler(req, res) {
         timeMin: startDate.toISOString(),
         timeMax: endDate.toISOString(),
         timeZone: timezone,
-        items: [{ id: PRIMARY_CALENDAR_ID }]
+        items: BUSY_CALENDAR_IDS.map(id => ({ id }))
       }
     });
-    const busy = (fbRes.data.calendars && fbRes.data.calendars[PRIMARY_CALENDAR_ID] && fbRes.data.calendars[PRIMARY_CALENDAR_ID].busy) || [];
+    // Collect busy arrays from all queried calendars
+    const busy = BUSY_CALENDAR_IDS.flatMap(id => (fbRes.data.calendars?.[id]?.busy) || []);
 
     const availability = {};
     for (let i = 0; i < numDays; i++) {
