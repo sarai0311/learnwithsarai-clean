@@ -17,6 +17,7 @@ import { userProfileService, bookingService } from "@/lib/supabase";
 import { googleCalendarService } from "@/lib/googleCalendar";
 import { getUserTimezone } from "@/lib/utils";
 import TermsAndConditions from "@/components/TermsAndConditions";
+import TimezoneSelector from "@/components/TimezoneSelector";
 
 interface ServiceOption {
   id: string;
@@ -328,7 +329,13 @@ const BookClass = () => {
                         />
                       </div>
                       
-                      {/* Remove timezone selection dropdown */}
+                      <div className="space-y-2">
+                        <Label htmlFor="timezone">{t('book.timezone')}</Label>
+                        <TimezoneSelector
+                          value={customerInfo.timezone}
+                          onValueChange={(timezone) => setCustomerInfo({...customerInfo, timezone})}
+                        />
+                      </div>
                       
                       <div className="space-y-2">
                         <Label htmlFor="level">{t('book.level')}</Label>
