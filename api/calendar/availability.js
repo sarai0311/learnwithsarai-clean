@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 // Environment variables
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
@@ -83,9 +84,7 @@ export default async function handler(req, res) {
         };
         continue;
       }
-      const { zonedTimeToUtc } = require('date-fns-tz');
-
-      const slots = TIME_SLOTS.map(t => {
+            const slots = TIME_SLOTS.map(t => {
         const slotStart = zonedTimeToUtc(`${dateKey}T${t}:00`, timezone);
         const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
         if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };
