@@ -60,12 +60,12 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-sarai-primary/20 via-transparent to-sarai-secondary/20 rounded-3xl transform rotate-3"></div>
               <div className="relative bg-white rounded-3xl p-8 shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500">
                 <div className="space-y-6">
-                  <div className="flex justify-center">
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary">
+                  <div className="flex justify-center items-center">
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-br from-sarai-primary to-sarai-secondary mx-auto">
                       <img 
                         src="/sarai-about-profile.jpeg" 
                         alt="Sarai Acevedo - Spanish Teacher"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-center"
                       />
                     </div>
                   </div>
