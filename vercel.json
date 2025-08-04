@@ -13,6 +13,9 @@
     },
     "api/calendar/create-event.js": {
       "maxDuration": 30
+    },
+    "api/calendar/test-debug.js": {
+      "maxDuration": 30
     }
   },
   "rewrites": [
