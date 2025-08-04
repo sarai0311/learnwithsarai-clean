@@ -21,11 +21,10 @@ In your Vercel project settings, add these environment variables:
 - `GOOGLE_CALENDAR_ID`: Your Google Calendar ID (e.g., `sarai.syav@gmail.com`)
 
 **Stripe Payment Integration:**
-- `STRIPE_SECRET_KEY`: Your Stripe secret key (starts with `sk_`)
-- `STRIPE_PUBLIC_KEY`: Your Stripe publishable key (starts with `pk_`)
+- `STRIPE_SECRET_KEY`: Your Stripe secret key (starts with `sk_test_` or `sk_live_`)
+- `VITE_STRIPE_PUBLISHABLE_KEY`: Your Stripe publishable key (starts with `pk_test_` or `pk_live_`)
 
-**Frontend Environment Variables:**
-- `VITE_STRIPE_PUBLISHABLE_KEY`: Same as STRIPE_PUBLIC_KEY
+**Note:** The frontend uses `VITE_STRIPE_PUBLISHABLE_KEY` which gets embedded in the client-side code during build time. The backend API uses `STRIPE_SECRET_KEY` for secure server-side operations.
 - `VITE_GOOGLE_CALENDAR_ID`: Same as GOOGLE_CALENDAR_ID
 - `VITE_GOOGLE_CALENDAR_TIMEZONE`: `Atlantic/Canary`
 
