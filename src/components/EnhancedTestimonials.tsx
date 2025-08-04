@@ -213,7 +213,7 @@ const EnhancedTestimonials = () => {
             {[
               { number: "500+", label: "Happy Students" },
               { number: "15+", label: "Countries" },
-              { number: "4.9/5", label: "Average Rating" },
+              { number: "5/5", label: "Average Rating" },
               { number: "2000+", label: "Classes Taught" }
             ].map((stat, index) => (
               <motion.div
