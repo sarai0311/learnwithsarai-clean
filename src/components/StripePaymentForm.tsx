@@ -10,6 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
 import { CreditCard, Lock } from 'lucide-react';
 import stripePromise from '@/lib/stripe';
+import StripeDebug from '@/components/StripeDebug';
 
 interface PaymentFormProps {
   amount: number;
@@ -40,6 +41,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
     event.preventDefault();
 
     if (!stripe || !elements) {
+      onError('Stripe is not loaded properly. Please refresh the page and try again.');
       return;
     }
 
@@ -193,9 +195,12 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
 // Wrapper component that provides Stripe Elements context
 const StripePaymentForm: React.FC<PaymentFormProps> = (props) => {
   return (
-    <Elements stripe={stripePromise}>
-      <PaymentForm {...props} />
-    </Elements>
+    <div>
+      <StripeDebug />
+      <Elements stripe={stripePromise}>
+        <PaymentForm {...props} />
+      </Elements>
+    </div>
   );
 };
 
