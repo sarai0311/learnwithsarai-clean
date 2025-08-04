@@ -12,9 +12,9 @@ const BUSY_CALENDAR_IDS = [
   'c_7c78adbb83c842eaabac379c3ca6241c6325e5a029cfa72d363228f1a188d242@group.calendar.google.com'
 ];
 
-// Time slots (Atlantic/Canary time) - 30-minute intervals
+// Time slots (Atlantic/Canary time) - 30-minute intervals from 14:00 to 22:00
 const TIME_SLOTS = [
-  '13:00','13:30','14:00','14:30','15:00','15:30',
+  '14:00','14:30','15:00','15:30',
   '16:00','16:30','17:00','17:30','18:00','18:30',
   '19:00','19:30','20:00','20:30','21:00','21:30','22:00'
 ];
@@ -43,7 +43,7 @@ const addDays = (date, days) => {
   return result;
 };
 const formatDate = (date) => date.toISOString().split('T')[0];
-const isWeekend = (date) => [0, 6].includes(date.getDay());
+const isWeekend = (date) => [0, 6].includes(date.getDay()); // Sunday (0) and Saturday (6)
 
 export default async function handler(req, res) {
   // CORS
