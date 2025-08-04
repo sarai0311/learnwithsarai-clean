@@ -68,9 +68,10 @@ interface AvailabilityCalendarProps {
   onSlotSelect?: (slot: { date: string; time: string } | null) => void;
   selectedSlot?: { date: string; time: string } | null;
   userTimezone?: string;
+  serviceDurationMinutes?: number;
 }
 
-const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot, userTimezone = 'Atlantic/Canary' }: AvailabilityCalendarProps) => {
+const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot, userTimezone = 'Atlantic/Canary', serviceDurationMinutes = 30 }: AvailabilityCalendarProps) => {
   const [availability, setAvailability] = useState<Record<string, DayAvailability>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,7 +117,19 @@ const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot
   };
 
   const selectedDateKey = format(selectedDate, 'yyyy-MM-dd');
-  const availableSlots = availability[selectedDateKey]?.slots || [];
+  const rawSlots = availability[selectedDateKey]?.slots || [];
+  
+  // Filter slots based on service duration to ensure they don't extend beyond 22:00
+  const availableSlots = rawSlots.filter(slot => {
+    if (!slot.available) return true; // Keep unavailable slots for display
+    
+    const [hours, minutes] = slot.time.split(':').map(Number);
+    const slotStartMinutes = hours * 60 + minutes;
+    const slotEndMinutes = slotStartMinutes + serviceDurationMinutes;
+    const maxEndTime = 22 * 60; // 22:00 in minutes
+    
+    return slotEndMinutes <= maxEndTime;
+  });
 
   // Loading state
   if (loading) {

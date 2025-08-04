@@ -63,6 +63,18 @@ const BookClass = () => {
   const handleSlotSelect = (slot: { date: string; time: string } | null) => {
     setSelectedSlot(slot);
   };
+  
+  // Get service duration in minutes
+  const getServiceDurationMinutes = (serviceId: string) => {
+    switch (serviceId) {
+      case 'trial':
+        return 30;
+      case 'premium':
+        return 100;
+      default: // standard
+        return 60;
+    }
+  };
 
   // Check if user can continue to payment
   const canContinueToPayment = () => {
@@ -424,6 +436,7 @@ const BookClass = () => {
                         <AvailabilityCalendar 
                           userTimezone={customerInfo.timezone || 'Atlantic/Canary'} 
                           onSlotSelect={handleSlotSelect}
+                          serviceDurationMinutes={getServiceDurationMinutes(selectedService.id)}
                         />
                       </div>
                     </CardContent>
