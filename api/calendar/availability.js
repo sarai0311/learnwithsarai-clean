@@ -1,5 +1,4 @@
-import { google } from 'googleapis';
-import { zonedTimeToUtc } from 'date-fns-tz';
+// Dynamic imports will be done inside the function
 
 // Environment variables
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
@@ -21,12 +20,13 @@ const TIME_SLOTS = [
 ];
 
 // Create Google Calendar client with domain-wide delegation
-const createCalendarClient = () => {
+const createCalendarClient = async () => {
   if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY || !IMPERSONATE_USER_EMAIL) {
     console.error('Google Calendar credentials not configured');
     return null;
   }
 
+  const { google } = await import('googleapis');
   const auth = new google.auth.JWT({
     email: SERVICE_ACCOUNT_EMAIL,
     key: PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -85,13 +85,14 @@ export default async function handler(req, res) {
         };
         continue;
       }
-      const slots = TIME_SLOTS.map(t => {
+      const slots = await Promise.all(TIME_SLOTS.map(async t => {
+        const { zonedTimeToUtc } = await import('date-fns-tz');
         const slotStart = zonedTimeToUtc(`${dateKey}T${t}:00`, timezone);
         const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
         if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };
         const conflicted = busy.some(b => slotStart < new Date(b.end) && slotEnd > new Date(b.start));
         return { time: t, available: !conflicted, reason: conflicted ? 'busy' : undefined };
-      });
+      }));
       availability[dateKey] = { date: dateKey, slots };
     }
 
