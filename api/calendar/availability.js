@@ -85,14 +85,14 @@ export default async function handler(req, res) {
         };
         continue;
       }
-      const slots = await Promise.all(TIME_SLOTS.map(async t => {
-        const { zonedTimeToUtc } = await import('date-fns-tz');
+      const { zonedTimeToUtc } = await import('date-fns-tz');
+      const slots = TIME_SLOTS.map(t => {
         const slotStart = zonedTimeToUtc(`${dateKey}T${t}:00`, timezone);
         const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
         if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };
         const conflicted = busy.some(b => slotStart < new Date(b.end) && slotEnd > new Date(b.start));
         return { time: t, available: !conflicted, reason: conflicted ? 'busy' : undefined };
-      }));
+      });
       availability[dateKey] = { date: dateKey, slots };
     }
 
