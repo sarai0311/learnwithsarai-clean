@@ -14,73 +14,80 @@ const LearnWithSaraiLogo: React.FC<LearnWithSaraiLogoProps> = ({
       <svg 
         width={size} 
         height={size} 
-        viewBox="0 0 32 32" 
+        viewBox="0 0 36 32" 
         className={className}
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Definitions */}
-        <defs>
-        </defs>
-        
-        {/* Colombian Flag Background (left half) - Wavy shape */}
+        {/* Flag Staff */}
         <g>
-          <path d="M0,0 Q4,2 8,0 Q12,2 16,0 L16,10.67 Q12,12.67 8,10.67 Q4,8.67 0,10.67 Z" fill="#FFCD00" />
-          <path d="M0,10.67 Q4,12.67 8,10.67 Q12,8.67 16,10.67 L16,21.33 Q12,23.33 8,21.33 Q4,19.33 0,21.33 Z" fill="#003893" />
-          <path d="M0,21.33 Q4,23.33 8,21.33 Q12,19.33 16,21.33 L16,32 Q12,30 8,32 Q4,34 0,32 Z" fill="#CE1126" />
+          <rect x="0" y="0" width="1.5" height="32" fill="#8B4513" />
+          <rect x="1.5" y="0" width="0.5" height="32" fill="#654321" />
         </g>
         
-        {/* US Flag Background (right half) - Wavy shape */}
+        {/* Colombian Flag Background (left half) - Enhanced wavy shape */}
         <g>
-          {/* Red and white stripes with wavy edges */}
-          <path d="M16,0 Q20,2 24,0 Q28,2 32,0 L32,2.46 Q28,4.46 24,2.46 Q20,0.46 16,2.46 Z" fill="#B22234" />
-          <path d="M16,2.46 Q20,4.46 24,2.46 Q28,0.46 32,2.46 L32,4.92 Q28,6.92 24,4.92 Q20,2.92 16,4.92 Z" fill="#FFFFFF" />
-          <path d="M16,4.92 Q20,6.92 24,4.92 Q28,2.92 32,4.92 L32,7.38 Q28,9.38 24,7.38 Q20,5.38 16,7.38 Z" fill="#B22234" />
-          <path d="M16,7.38 Q20,9.38 24,7.38 Q28,5.38 32,7.38 L32,9.84 Q28,11.84 24,9.84 Q20,7.84 16,9.84 Z" fill="#FFFFFF" />
-          <path d="M16,9.84 Q20,11.84 24,9.84 Q28,7.84 32,9.84 L32,12.31 Q28,14.31 24,12.31 Q20,10.31 16,12.31 Z" fill="#B22234" />
-          <path d="M16,12.31 Q20,14.31 24,12.31 Q28,10.31 32,12.31 L32,14.77 Q28,16.77 24,14.77 Q20,12.77 16,14.77 Z" fill="#FFFFFF" />
-          <path d="M16,14.77 Q20,16.77 24,14.77 Q28,12.77 32,14.77 L32,17.23 Q28,19.23 24,17.23 Q20,15.23 16,17.23 Z" fill="#B22234" />
-          <path d="M16,17.23 Q20,19.23 24,17.23 Q28,15.23 32,17.23 L32,19.69 Q28,21.69 24,19.69 Q20,17.69 16,19.69 Z" fill="#FFFFFF" />
-          <path d="M16,19.69 Q20,21.69 24,19.69 Q28,17.69 32,19.69 L32,22.15 Q28,24.15 24,22.15 Q20,20.15 16,22.15 Z" fill="#B22234" />
-          <path d="M16,22.15 Q20,24.15 24,22.15 Q28,20.15 32,22.15 L32,24.61 Q28,26.61 24,24.61 Q20,22.61 16,24.61 Z" fill="#FFFFFF" />
-          <path d="M16,24.61 Q20,26.61 24,24.61 Q28,22.61 32,24.61 L32,27.08 Q28,29.08 24,27.08 Q20,25.08 16,27.08 Z" fill="#B22234" />
-          <path d="M16,27.08 Q20,29.08 24,27.08 Q28,25.08 32,27.08 L32,32 Q28,30 24,32 Q20,34 16,32 Z" fill="#FFFFFF" />
+          {/* Yellow stripe - more pronounced wave */}
+          <path d="M2,1 Q6,3.5 10,1 Q14,4 18,1 Q22,3.5 26,1 Q30,4 34,1 L34,11.67 Q30,14.67 26,11.67 Q22,8.67 18,11.67 Q14,14.67 10,11.67 Q6,8.67 2,11.67 Z" fill="#FFCD00" />
+          
+          {/* Blue stripe - opposite wave pattern */}
+          <path d="M2,11.67 Q6,8.67 10,11.67 Q14,14.67 18,11.67 Q22,8.67 26,11.67 Q30,14.67 34,11.67 L34,22.33 Q30,19.33 26,22.33 Q22,25.33 18,22.33 Q14,19.33 10,22.33 Q6,25.33 2,22.33 Z" fill="#003893" />
+          
+          {/* Red stripe - wave continues pattern */}
+          <path d="M2,22.33 Q6,25.33 10,22.33 Q14,19.33 18,22.33 Q22,25.33 26,22.33 Q30,19.33 34,22.33 L34,31 Q30,28 26,31 Q22,34 18,31 Q14,28 10,31 Q6,34 2,31 Z" fill="#CE1126" />
         </g>
         
-        {/* Blue canton for US flag - wavy shape */}
+        {/* US Flag Background (right half) - Enhanced wavy shape */}
         <g>
-          <path d="M16,0 Q20,1 24,0 L24,12.31 Q20,11.31 16,12.31 Z" fill="#3C3B6E" />
+          {/* Red and white stripes with enhanced wavy edges */}
+          <path d="M18,1 Q22,3.5 26,1 Q30,4 34,1 L34,3.46 Q30,6.46 26,3.46 Q22,0.46 18,3.46 Z" fill="#B22234" />
+          <path d="M18,3.46 Q22,0.46 26,3.46 Q30,6.46 34,3.46 L34,5.92 Q30,2.92 26,5.92 Q22,8.92 18,5.92 Z" fill="#FFFFFF" />
+          <path d="M18,5.92 Q22,8.92 26,5.92 Q30,2.92 34,5.92 L34,8.38 Q30,11.38 26,8.38 Q22,5.38 18,8.38 Z" fill="#B22234" />
+          <path d="M18,8.38 Q22,5.38 26,8.38 Q30,11.38 34,8.38 L34,10.84 Q30,7.84 26,10.84 Q22,13.84 18,10.84 Z" fill="#FFFFFF" />
+          <path d="M18,10.84 Q22,13.84 26,10.84 Q30,7.84 34,10.84 L34,13.31 Q30,16.31 26,13.31 Q22,10.31 18,13.31 Z" fill="#B22234" />
+          <path d="M18,13.31 Q22,10.31 26,13.31 Q30,16.31 34,13.31 L34,15.77 Q30,12.77 26,15.77 Q22,18.77 18,15.77 Z" fill="#FFFFFF" />
+          <path d="M18,15.77 Q22,18.77 26,15.77 Q30,12.77 34,15.77 L34,18.23 Q30,21.23 26,18.23 Q22,15.23 18,18.23 Z" fill="#B22234" />
+          <path d="M18,18.23 Q22,15.23 26,18.23 Q30,21.23 34,18.23 L34,20.69 Q30,17.69 26,20.69 Q22,23.69 18,20.69 Z" fill="#FFFFFF" />
+          <path d="M18,20.69 Q22,23.69 26,20.69 Q30,17.69 34,20.69 L34,23.15 Q30,26.15 26,23.15 Q22,20.15 18,23.15 Z" fill="#B22234" />
+          <path d="M18,23.15 Q22,20.15 26,23.15 Q30,26.15 34,23.15 L34,25.61 Q30,22.61 26,25.61 Q22,28.61 18,25.61 Z" fill="#FFFFFF" />
+          <path d="M18,25.61 Q22,28.61 26,25.61 Q30,22.61 34,25.61 L34,28.08 Q30,31.08 26,28.08 Q22,25.08 18,28.08 Z" fill="#B22234" />
+          <path d="M18,28.08 Q22,25.08 26,28.08 Q30,31.08 34,28.08 L34,31 Q30,28 26,31 Q22,34 18,31 Z" fill="#FFFFFF" />
+        </g>
+        
+        {/* Blue canton for US flag - enhanced wavy shape */}
+        <g>
+          <path d="M18,1 Q22,2.5 26,1 L26,13.31 Q22,11.31 18,13.31 Z" fill="#3C3B6E" />
         </g>
         
         {/* Stars */}
         <g>
-          <circle cx="18" cy="2" r="0.5" fill="#FFFFFF" />
-          <circle cx="22" cy="2" r="0.5" fill="#FFFFFF" />
-          <circle cx="20" cy="4" r="0.5" fill="#FFFFFF" />
-          <circle cx="18" cy="6" r="0.5" fill="#FFFFFF" />
-          <circle cx="22" cy="6" r="0.5" fill="#FFFFFF" />
-          <circle cx="20" cy="8" r="0.5" fill="#FFFFFF" />
-          <circle cx="18" cy="10" r="0.5" fill="#FFFFFF" />
-          <circle cx="22" cy="10" r="0.5" fill="#FFFFFF" />
+          <circle cx="20" cy="3" r="0.4" fill="#FFFFFF" />
+          <circle cx="24" cy="3" r="0.4" fill="#FFFFFF" />
+          <circle cx="22" cy="5" r="0.4" fill="#FFFFFF" />
+          <circle cx="20" cy="7" r="0.4" fill="#FFFFFF" />
+          <circle cx="24" cy="7" r="0.4" fill="#FFFFFF" />
+          <circle cx="22" cy="9" r="0.4" fill="#FFFFFF" />
+          <circle cx="20" cy="11" r="0.4" fill="#FFFFFF" />
+          <circle cx="24" cy="11" r="0.4" fill="#FFFFFF" />
         </g>
         
-        {/* Glasses Frame - Static for stability */}
+        {/* Glasses Frame - No blue background */}
         <g stroke="#2D2D2D" strokeWidth="1.5" fill="none">
           {/* Left lens */}
-          <circle cx="12" cy="16" r="5" fill="rgba(255,255,255,0.2)" />
+          <circle cx="14" cy="18" r="5" fill="rgba(255,255,255,0.1)" />
           {/* Right lens */}
-          <circle cx="20" cy="16" r="5" fill="rgba(255,255,255,0.2)" />
+          <circle cx="22" cy="18" r="5" fill="rgba(255,255,255,0.1)" />
           {/* Bridge */}
-          <line x1="17" y1="16" x2="15" y2="16" />
+          <line x1="19" y1="18" x2="17" y2="18" />
           {/* Left temple */}
-          <line x1="7" y1="16" x2="4" y2="14" />
+          <line x1="9" y1="18" x2="6" y2="16" />
           {/* Right temple */}
-          <line x1="25" y1="16" x2="28" y2="14" />
+          <line x1="27" y1="18" x2="30" y2="16" />
         </g>
         
         {/* Glasses reflection */}
-        <g fill="#FFFFFF" opacity="0.4">
-          <ellipse cx="10" cy="14" rx="1.5" ry="2" />
-          <ellipse cx="22" cy="14" rx="1.5" ry="2" />
+        <g fill="#FFFFFF" opacity="0.3">
+          <ellipse cx="12" cy="16" rx="1.5" ry="2" />
+          <ellipse cx="24" cy="16" rx="1.5" ry="2" />
         </g>
       </svg>
     </div>
