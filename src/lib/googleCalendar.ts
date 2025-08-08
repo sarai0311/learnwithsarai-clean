@@ -26,8 +26,7 @@ export const googleCalendarService = {
         },
         body: JSON.stringify({
           days,
-          timezone: 'Atlantic/Canary', // Server timezone (where Sarai is)
-          userTimezone: userTimezone    // User's timezone for display
+          timezone: userTimezone // User's timezone for proper availability conversion
         })
       });
 
