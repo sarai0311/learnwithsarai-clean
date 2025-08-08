@@ -114,15 +114,15 @@ const TimezoneSelector: React.FC<TimezoneSelectorProps> = ({
                   <SelectItem 
                     key={timezone.value} 
                     value={timezone.value}
-                    className="pl-4"
+                    className="pl-4 pr-8"
                   >
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex flex-col">
+                    <div className="flex items-center justify-between w-full mr-6">
+                      <div className="flex flex-col flex-1">
                         <span className="font-medium">{timezone.label}</span>
                         <span className="text-xs text-gray-500">{timezone.offset}</span>
                       </div>
                       {currentTimeInTz && (
-                        <span className="text-xs text-gray-500 flex items-center gap-1 ml-2">
+                        <span className="text-xs text-gray-500 flex items-center gap-1 ml-2 shrink-0">
                           <Clock className="h-3 w-3" />
                           {currentTimeInTz}
                         </span>
