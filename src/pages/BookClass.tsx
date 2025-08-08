@@ -34,7 +34,7 @@ const BookClass = () => {
   
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState<ServiceOption | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<{date: string, time: string} | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<{date: string, time: string, originalCanaryTime?: string} | null>(null);
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
@@ -60,7 +60,7 @@ const BookClass = () => {
   }, [serviceParam]);
 
   // Handle slot selection
-  const handleSlotSelect = (slot: { date: string; time: string } | null) => {
+  const handleSlotSelect = (slot: { date: string; time: string; originalCanaryTime?: string } | null) => {
     setSelectedSlot(slot);
   };
   
@@ -136,7 +136,9 @@ const BookClass = () => {
             description: `Spanish class with ${customerInfo.name}\nLevel: ${customerInfo.level}\nGoals: ${customerInfo.goals}\nStudent timezone: ${customerInfo.timezone}`,
             attendeeEmail: customerInfo.email,
             attendeeName: customerInfo.name,
-            durationMinutes: durationMinutes
+            durationMinutes: durationMinutes,
+            userTimezone: customerInfo.timezone,
+            originalCanaryTime: selectedSlot.originalCanaryTime
           });
 
           if (calendarResult.success) {

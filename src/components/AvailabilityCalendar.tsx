@@ -65,8 +65,8 @@ const formatTimeDisplay = (time: string) => {
 };
 
 interface AvailabilityCalendarProps {
-  onSlotSelect?: (slot: { date: string; time: string } | null) => void;
-  selectedSlot?: { date: string; time: string } | null;
+  onSlotSelect?: (slot: { date: string; time: string; originalCanaryTime?: string } | null) => void;
+  selectedSlot?: { date: string; time: string; originalCanaryTime?: string } | null;
   userTimezone?: string;
   serviceDurationMinutes?: number;
 }
@@ -76,7 +76,7 @@ const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [internalSelectedSlot, setInternalSelectedSlot] = useState<{date: string, time: string} | null>(null);
+  const [internalSelectedSlot, setInternalSelectedSlot] = useState<{date: string, time: string, originalCanaryTime?: string} | null>(null);
   const { language, t } = useLanguage();
 
   // Use external or internal selected slot
@@ -104,8 +104,8 @@ const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot
     fetchAvailability();
   }, [userTimezone]);
 
-  const handleSlotClick = (date: string, time: string) => {
-    const newSlot = { date, time };
+  const handleSlotClick = (date: string, time: string, originalCanaryTime?: string) => {
+    const newSlot = { date, time, originalCanaryTime };
     
     // Update internal state
     setInternalSelectedSlot(newSlot);
@@ -285,7 +285,7 @@ const AvailabilityCalendar = ({ onSlotSelect, selectedSlot: externalSelectedSlot
                             ? 'border-gray-300 text-gray-700 hover:border-sarai-primary hover:text-sarai-primary hover:bg-sarai-primary/5'
                             : 'bg-gray-50 text-gray-400 cursor-not-allowed border-gray-200'
                         }`}
-                        onClick={() => slot.available && handleSlotClick(selectedDateKey, slot.time)}
+                        onClick={() => slot.available && handleSlotClick(selectedDateKey, slot.time, (slot as any).originalCanaryTime)}
                         disabled={!slot.available}
                         title={
                           !slot.available && slot.reason === 'busy' 

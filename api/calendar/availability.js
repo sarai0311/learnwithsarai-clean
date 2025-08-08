@@ -54,8 +54,9 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { days = 14, timezone = 'Atlantic/Canary' } = req.body || {};
+    const { days = 14, timezone: userTimezone = 'Atlantic/Canary' } = req.body || {};
     const numDays = Math.min(Math.max(parseInt(days, 10), 1), 60);
+    const saraiTimezone = 'Atlantic/Canary'; // Sarai's timezone is fixed
 
     const calendar = await createCalendarClient();
     if (!calendar) return res.status(500).json({ error: 'Calendar auth failed' });
@@ -63,21 +64,25 @@ export default async function handler(req, res) {
     const startDate = new Date();
     const endDate = addDays(startDate, numDays);
 
+    // Always query busy times in Sarai's timezone for accuracy
     const fbRes = await calendar.freebusy.query({
       requestBody: {
         timeMin: startDate.toISOString(),
         timeMax: endDate.toISOString(),
-        timeZone: timezone,
+        timeZone: saraiTimezone,
         items: BUSY_CALENDAR_IDS.map(id => ({ id }))
       }
     });
     // Collect busy arrays from all queried calendars
     const busy = BUSY_CALENDAR_IDS.flatMap(id => (fbRes.data.calendars?.[id]?.busy) || []);
 
+    const { fromZonedTime, toZonedTime, format } = await import('date-fns-tz');
+    
     const availability = {};
     for (let i = 0; i < numDays; i++) {
       const date = addDays(startDate, i);
       const dateKey = formatDate(date);
+      
       if (isWeekend(date)) {
         availability[dateKey] = {
           date: dateKey,
@@ -85,18 +90,74 @@ export default async function handler(req, res) {
         };
         continue;
       }
-      const { fromZonedTime } = await import('date-fns-tz');
-      const slots = TIME_SLOTS.map(t => {
-        const slotStart = fromZonedTime(`${dateKey}T${t}:00`, timezone);
-        const slotEnd = new Date(slotStart.getTime() + 30 * 60 * 1000);
-        if (slotStart < new Date()) return { time: t, available: false, reason: 'past' };
-        const conflicted = busy.some(b => slotStart < new Date(b.end) && slotEnd > new Date(b.start));
-        return { time: t, available: !conflicted, reason: conflicted ? 'busy' : undefined };
+      
+      const slots = [];
+      
+      // Convert each Canary time slot to user's timezone
+      for (const canaryTime of TIME_SLOTS) {
+        // Create datetime in Sarai's timezone
+        const canaryDateTime = fromZonedTime(`${dateKey}T${canaryTime}:00`, saraiTimezone);
+        
+        // Convert to user's timezone
+        const userDateTime = toZonedTime(canaryDateTime, userTimezone);
+        const userTimeFormatted = format(userDateTime, 'HH:mm', { timeZone: userTimezone });
+        const userDateFormatted = format(userDateTime, 'yyyy-MM-dd', { timeZone: userTimezone });
+        
+        // Check if this slot is in the past
+        if (canaryDateTime < new Date()) {
+          slots.push({ 
+            time: userTimeFormatted, 
+            available: false, 
+            reason: 'past',
+            originalCanaryTime: canaryTime,
+            userDate: userDateFormatted
+          });
+          continue;
+        }
+        
+        // Check if slot conflicts with busy times (check in Sarai's timezone)
+        const slotEnd = new Date(canaryDateTime.getTime() + 30 * 60 * 1000);
+        const conflicted = busy.some(b => canaryDateTime < new Date(b.end) && slotEnd > new Date(b.start));
+        
+        slots.push({
+          time: userTimeFormatted,
+          available: !conflicted,
+          reason: conflicted ? 'busy' : undefined,
+          originalCanaryTime: canaryTime,
+          userDate: userDateFormatted
+        });
+      }
+      
+      // Group slots by user's date (important for timezone conversions that cross midnight)
+      const slotsByDate = {};
+      slots.forEach(slot => {
+        if (!slotsByDate[slot.userDate]) {
+          slotsByDate[slot.userDate] = [];
+        }
+        slotsByDate[slot.userDate].push(slot);
       });
-      availability[dateKey] = { date: dateKey, slots };
+      
+      // Add slots to availability, potentially across multiple dates
+      Object.entries(slotsByDate).forEach(([userDate, dateSlots]) => {
+        if (!availability[userDate]) {
+          availability[userDate] = {
+            date: userDate,
+            slots: []
+          };
+        }
+        availability[userDate].slots.push(...dateSlots.map(slot => ({
+          time: slot.time,
+          available: slot.available,
+          reason: slot.reason,
+          originalCanaryTime: slot.originalCanaryTime
+        })));
+        
+        // Sort slots by time
+        availability[userDate].slots.sort((a, b) => a.time.localeCompare(b.time));
+      });
     }
 
-    return res.json({ availability, timezone });
+    return res.json({ availability, userTimezone, saraiTimezone });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Internal error', message: err.message });

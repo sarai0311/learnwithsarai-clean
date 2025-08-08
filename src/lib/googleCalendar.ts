@@ -3,6 +3,7 @@ export interface TimeSlot {
   time: string;
   available: boolean;
   reason?: 'busy' | 'weekend' | 'outside-hours';
+  originalCanaryTime?: string;
 }
 
 export interface DayAvailability {
@@ -51,11 +52,18 @@ export const googleCalendarService = {
     attendeeEmail: string;
     attendeeName: string;
     durationMinutes?: number;
+    userTimezone?: string;
+    originalCanaryTime?: string;
   }): Promise<{ success: boolean; eventId?: string; hangoutLink?: string; error?: string }> {
     try {
-      const startDateTime = createEventDateTime(eventData.date, eventData.time);
+      // If we have the original Canary time, use that for calendar creation
+      // Otherwise, assume the time is already in the correct timezone
+      const timeToUse = eventData.originalCanaryTime || eventData.time;
+      const timezoneToUse = eventData.originalCanaryTime ? 'Atlantic/Canary' : (eventData.userTimezone || 'Atlantic/Canary');
+      
+      const startDateTime = createEventDateTime(eventData.date, timeToUse);
       const durationMinutes = eventData.durationMinutes || 60; // Default to 1 hour if not specified
-      const endDateTime = createEventDateTime(eventData.date, eventData.time, durationMinutes);
+      const endDateTime = createEventDateTime(eventData.date, timeToUse, durationMinutes);
 
       const response = await fetch('/api/calendar/create-event', {
         method: 'POST',
@@ -69,7 +77,7 @@ export const googleCalendarService = {
           endDateTime,
           attendeeEmail: eventData.attendeeEmail,
           attendeeName: eventData.attendeeName,
-          timezone: 'Atlantic/Canary'
+          timezone: timezoneToUse
         })
       });
 
